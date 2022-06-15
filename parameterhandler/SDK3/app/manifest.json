@@ -1,0 +1,24 @@
+{
+    "schemaVersion": "1.1",
+    "acapPackageConf": {
+        "setup": {
+            "appName": "ParameterhandlerTest",
+            "vendor": "FixedIT Consulting AB",
+            "user": {
+                "username": "sdk",
+                "group": "sdk"
+            },
+            "runMode": "respawn",
+            "version": "0.1.0"
+        },
+        "configuration": {
+            "paramConfig": [
+                {
+                    "name": "CloudUrl",
+                    "type": "string",
+                    "default": "http://host.domain"
+                }
+            ]
+        }
+    }
+}
