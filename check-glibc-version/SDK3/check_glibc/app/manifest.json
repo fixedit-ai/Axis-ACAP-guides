@@ -1,0 +1,18 @@
+{
+    "schemaVersion": "1.1",
+    "acapPackageConf": {
+        "setup": {
+            "friendlyName": "check_glibc",
+            "appName": "check_glibc",
+            "vendor": "FixedIT Consulting AB",
+            "embeddedSdkVersion": "3.0",
+            "user": {
+                "group": "sdk",
+                "username": "sdk"
+            },
+            "vendorUrl": "fixedit.ai",
+            "runMode": "never",
+            "version": "0.0.1"
+        }
+    }
+}

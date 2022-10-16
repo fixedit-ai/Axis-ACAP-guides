@@ -6,3 +6,6 @@ This directory shows how the preuninstall script can be used to execute a script
 
 ## Parameter handler
 This directory shows how the built in parameter library is used in SDK 3.
+
+## Check glibc version
+This is a simple application that prints the glibc version used in the camera and in the SDK. This is helpful for debugging and compatibility checking.
