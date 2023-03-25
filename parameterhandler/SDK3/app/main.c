@@ -22,6 +22,8 @@ int main(int argc, char **argv) {
   (void)argc;
   (void)argv;
 
+  const char *error = NULL;
+
   int return_code = RET_OK;
 
   // See manpages for options: https://linux.die.net/man/3/openlog
@@ -38,17 +40,18 @@ int main(int argc, char **argv) {
     goto error_out;
   }
   const char *cloud_url = config_get_cloud_url();
-  if (!cloud_url) {
-    syslog(LOG_ERR, "Failed to read cloud url from config: %s", config_get_error());
+  int cloud_port = config_get_cloud_port();
+  if ((error = config_get_error())) {
+    syslog(LOG_ERR, "Failed to read cloud url or port from config: %s", error);
     config_clear_error();
     return_code = RET_CONFIG_ERROR;
     goto error_out;
   }
-  syslog(LOG_INFO, "Reporting to server: %s", cloud_url);
+  syslog(LOG_INFO, "Reporting to server: %s:%d", cloud_url, cloud_port);
 
   syslog(LOG_INFO, "Set up finished.");
   while (!do_exit) {
-    sleep(999);
+    pause();
   }
 
 error_out:
