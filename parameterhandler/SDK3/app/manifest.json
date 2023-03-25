@@ -17,6 +17,11 @@
                     "name": "CloudUrl",
                     "type": "string",
                     "default": "http://host.domain"
+                },
+                {
+                    "name": "CloudPort",
+                    "type": "int:min=1,max=65535",
+                    "default": "80"
                 }
             ]
         }

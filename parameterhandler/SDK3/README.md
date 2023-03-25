@@ -16,5 +16,9 @@ The application can then be found in the camera web interface. When the applicat
 2022-04-23T18:45:41.182+02:00 axis-b8a44f39f301 [ INFO    ] ParameterhandlerTest[14585]: Set up finished.
 ```
 
-## Known issues
-The `axparameter` library is not included in the later SDK (SDK 4) and will likely be deprecated. The library does also suffer from quite a few bugs and issues, e.g. the application nor the parameters name must not contain any other characters than a-z, A-Z or 0-9, i.e. no dash or underscore, otherwise the parameter handler will fail to deal with the applications parameters.
+## Common issues and notes
+The `axparameter` library is not included in the later SDK (SDK 4) and will likely be deprecated.
+
+The library does suffer from quite a few bugs and issues, e.g. the application and the parameters name must not contain any other characters than a-z, A-Z or 0-9, i.e. no dash or underscore, otherwise the parameter handler will fail to deal with the applications parameters.
+
+This legacy parameter handler is most probably not what you want to use. Talk to us at FixedIT.ai for more info on better alternatives.
