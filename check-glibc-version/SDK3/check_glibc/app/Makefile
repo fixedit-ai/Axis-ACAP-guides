@@ -2,7 +2,7 @@ PROG1	= check_glibc
 OBJS1	= src/$(PROG1).c
 PROGS	= $(PROG1)
 
-PKGS =
+PKGS = glib-2.0
 
 CFLAGS  += $(FAPP_CFLAGS) -Iinclude
 
