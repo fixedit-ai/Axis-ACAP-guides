@@ -1,0 +1,35 @@
+name: Build and test the fapp/hello_world ACAP
+
+on:
+  push:
+    paths:
+      - "fapp/hello_world/**"
+      - ".github/workflows/build_fapp_hello_world.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ["armv7hf", "aarch64"]
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Install FApp CLI and login
+        uses: fixedit-ai/install-fappcli-action@main
+        with:
+          token: ${{ secrets.FAPP_TOKEN }}
+
+      - name: Build ACAP application
+        uses: fixedit-ai/build-eap-action@main
+        with:
+          arch: ${{ matrix.arch }}
+          dir: fapp/hello_world
+          libs: libfapp
+
+      - name: Validate the content of the ACAP .eap file
+        uses: fixedit-ai/test-eap-action@main
+        with:
+          arch: ${{ matrix.arch }}
+          app-path: "fapp/hello_world/*.eap"
