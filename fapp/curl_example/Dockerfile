@@ -1,27 +1,26 @@
-ARG CAM_ARCH
-ARG VERSION=1.7
-ARG REPO=axisecp
-ARG SDK=acap-native-sdk
+# These paths to docker images are set by the builder tool
+ARG FAPP_IMAGE_BUILDER_BASE
+ARG FAPP_IMAGE_OPENSSL
+ARG FAPP_IMAGE_CURL
 
-FROM ${REPO}/${SDK}:${VERSION}-${CAM_ARCH} as builder
-ENV SDK_ENV="/opt/axis/acapsdk/environment-setup*"
+# Load the prebuilt libraries for curl so that we can make
+# web requests from the app. Openssl is needed if we want to
+# use https.
+FROM ${FAPP_IMAGE_CURL} as library-curl
+FROM ${FAPP_IMAGE_OPENSSL} as library-openssl
 
+# We use FixedIT Application base image - the version of the SDK
+# is defined by the arguments to the build command.
+FROM ${FAPP_IMAGE_BUILDER_BASE} as builder
+
+# Copy the prebuilt libraries from the library images
+COPY --from=library-openssl /library /opt/app
+COPY --from=library-curl /library /opt/app
+
+# Copy app source code
 WORKDIR /opt/app
 COPY ./app .
 
-# Image with only the application binary built
-FROM builder as app-binaries
-ARG FAPP_BIN_NAME
-ARG FAPP_APP_NAME
-ARG FAPP_MAKE_OPTS
-ARG FAPP_CFLAGS
-ARG FAPP_LDFLAGS
-RUN . $SDK_ENV && make $FAPP_MAKE_OPTS
-
-# Image with the application .eap package built
-FROM builder as app-package
-ARG FAPP_BIN_NAME
-ARG FAPP_APP_NAME
-ARG FAPP_CFLAGS
-ARG FAPP_LDFLAGS
-RUN . $SDK_ENV && acap-build .
+# Append library license files to the app license file
+# This will be visible in the application tab in the cameras UI.
+RUN cat license/* >> LICENSE
