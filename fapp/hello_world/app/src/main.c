@@ -25,5 +25,6 @@ int main(int argc, char **argv) {
   }
 
   fapp_logger_log(LOG_INFO, "App exited.");
+
   return EXIT_SUCCESS;
 }
