@@ -84,3 +84,26 @@ The FApp CLI tool will automatically set build arguments for the build, such as:
 * `FAPP_BIN_NAME`: The name of the application binary to build based on the manifest file
 * `FAPP_APP_NAME`: The display name of the application based on the manifest file
 * `FAPP_CFLAGS` and `FAPP_LDFLAGS`: Other compilation flags needed for the build
+
+## Using multiple build configurations
+The build parameters are specified in the `fapp-manifest` files. These parameters are the same as can be specified directly to the build tool. There are two different files in this project, one for normal use (`fapp-manifest.json`) and one for debugging (`fapp-manifest.debug.json`). The first one is the default file that will be used whenever building the application. To specify the debug file, pass the option `--fapp-manifest fapp-manifest.debug.json` to any of the `build`, `install` or `run` commands in `fappcli`.
+
+The content of the debug file is:
+```json
+{
+    "build": {
+        "lib": ["libfapp", "curl", "openssl", "json-glib"],
+        "sdk_name": "acap-native-sdk",
+        "extra_package_files": ["bin"],
+        "build_arg": [
+            "DEBUG_SANITIZE=true"
+        ]
+    }
+}
+```
+This differs in two ways from the normal build config:
+- `extra_package_files` specifies that any executables from the prebuilt libraries should be included. This includes:
+    - `curl`: Make HTTP/HTTPS requests from the command line
+    - `openssl`: Validate server certificates from the command line
+    - `json-glib-format`: Prettyprint json files from the command line
+- `DEBUG_SANITIZE=true` is set in the environment when building the application. This is then used in the `app/Makefile` to enable GCC sanitizers to locate any memory leaks or undefined behavior.
