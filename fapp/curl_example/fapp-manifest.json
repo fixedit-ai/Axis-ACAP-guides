@@ -1,6 +1,6 @@
 {
     "build": {
-        "lib": ["libfapp", "curl", "openssl"],
+        "lib": ["libfapp", "curl", "openssl", "json-glib"],
         "sdk_name": "acap-native-sdk",
         "extra_package_files": ["bin"]
     }
