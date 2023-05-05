@@ -1,6 +1,12 @@
 # FApp cURL application
 This application shows another example of how the `fappcli` tool and the precompiled FApp libraries can be used to make application development for the Axis cameras easier.
 
+The application is using `libcurl` and `libssl` to make a GET request to an HTTPS endpoint returning a todo-list as json data. The json document is then parsed using `json-glib` to a structure that is printed to `stdout` and the system log.
+
+An high-level overview of the `fappcli` tool and the prebuilt library zoo for Axis cameras can be [seen in this video](https://youtu.be/nkNqgJmuCtQ).
+
+[This commit](https://github.com/fixedit-ai/Axis-ACAP-guides/pull/6/commits/4e86210420eb6e7f81f132157a9508ca302a79f7) stands as an example on how easy it is to add and use a new library in an ACAP application thanks to the FixedIT Library Zoo and the `fappcli` build tool.
+
 ## Build and install
 The application is built with `fappcli-build` tool. All the build options such as prebuilt libraries to pull when building are specified in the `fapp-manifest.json` file.
 
