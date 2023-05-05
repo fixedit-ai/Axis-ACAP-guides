@@ -1,3 +1,5 @@
+[![Build and test the fapp/curl_example ACAP](https://github.com/fixedit-ai/Axis-ACAP-guides/actions/workflows/build_fapp_curl_example.yml/badge.svg)](https://github.com/fixedit-ai/Axis-ACAP-guides/actions/workflows/build_fapp_curl_example.yml)
+
 # FApp cURL application
 This application shows another example of how the `fappcli` tool and the precompiled FApp libraries can be used to make application development for the Axis cameras easier.
 
@@ -40,6 +42,9 @@ The tool will automatically select one of the cameras connected to your computer
 fappcli-deploy run .
 ```
 which will not only build and install the application but also run it in the camera and pipe all the output to the terminal. To select a specific camera, add the option `--camera <CAM_NAME>` or to select any camera with a specific architecture, type: `--arch <ARCH>`.
+
+### CI/CD
+This application is automatically built and (statically) tested for the `aarch64` and `armv7hf` cameras with [the CI/CD job specified here](https://github.com/fixedit-ai/Axis-ACAP-guides/blob/main/.github/workflows/build_fapp_curl_example.yml). The application is built with the [fixedit/build-eap-action](https://github.com/fixedit-ai/build-eap-action) and tested with the [fixedit/test-eap-action](https://github.com/fixedit-ai/test-eap-action).
 
 ## Using precompiled libraries
 A library specified with the command line argument `--lib` or specified in the `fapp-manifest.json` file will be fetched as a docker image and the corresponding docker build-arg will be set. The format of the build-arg is `FAPP_IMAGE_<LIBRARY_NAME>`, e.g. specifying `--lib curl` will make the library available as `FAPP_IMAGE_CURL`. The deployment structure of all libraries are the same:
