@@ -17,7 +17,7 @@ To build the application, simply run:
 fappcli-build build .
 ```
 
-The tool will fetch all the libraries and requirements needed and build the application. It will also extract the `.eap` file and the build log from the Docker container. The build log is found in the file `build.log`. If the build would fail due to e.g. invalid C code or errors in the `Dockerfile`, the build root will be extracted from the docker container and can be found in the `build_root` directory. This simplifies the troubleshooting process.
+The tool will fetch all the libraries and requirements needed and build the application. It will then build a docker image from the `Dockerfile`. If the application was not built in the docker build step, the `acap-build` command will be run in the docker container with parameters described in the `fapp-manifest` file. The build output is captured and found in the file `build.log` on the host machine. If the build would fail due to e.g. invalid C code or errors in the `Dockerfile`, the build root will be extracted from the docker container and can be found in the `build_root` directory on the host machine. This simplifies the troubleshooting process. Finally the command will extract the `.eap` file from the Docker container. 
 
 Select ACAP SDK 3 by running:
 ```bash
