@@ -13,5 +13,9 @@ This is a simple application that prints the build-time and run-time versions of
 ## fapp/*
 This directory contains examples of how to build ACAP applications with the FApp (FixedIT Application) CLI tools and libraries. These tools makes it easier and faster to work with ACAP applications for multiple targets and multiple application scenarios. Contact us for more information on how you can improve your development environment.
 
+- fapp/hello_world: This is the most basic example.
+- fapp/curl_example: This is a slightly more complex example with precompiled libraries and a `fapp-manifest.json` file.
+- fapp/sentry_example: Using our prebuild sentry client to log telemetry data to the cloud.
+
 ## .github/workflows/*
 Example of CI/CD jobs to build and verify the ACAP applications.

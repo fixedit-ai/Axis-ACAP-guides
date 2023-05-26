@@ -1,0 +1,18 @@
+{
+    "schemaVersion": "1.1",
+    "acapPackageConf": {
+        "setup": {
+            "friendlyName": "sentry_example",
+            "appName": "sentry_example",
+            "vendor": "FixedIT Consulting AB",
+            "embeddedSdkVersion": "2.16",
+            "user": {
+                "group": "sdk",
+                "username": "sdk"
+            },
+            "vendorUrl": "fixedit.ai",
+            "runMode": "never",
+            "version": "0.0.5"
+        }
+    }
+}
