@@ -1,0 +1,10 @@
+{
+    "build": {
+        "lib": ["libfapp", "sentry", "curl", "openssl"],
+        "sdk_name": "acap-native-sdk",
+        "build_arg": [
+            "SENTRY_DSN=https://REPLACE-ME",
+            "SENTRY_ENV=development"
+        ]
+    }
+}
