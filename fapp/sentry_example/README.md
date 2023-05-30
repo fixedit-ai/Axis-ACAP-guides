@@ -16,7 +16,7 @@ Sentry can be used to remotelly log telemetry data from your connected devices i
   * What errors are occuring in production and how common are they?
   * What happened to the application before the error happened?
 
-In the following images we can see some of the cloud interfaces that we have built using the telemetry data logged from this example application.
+You can see an explanation of [what we log and why we log in this video](https://youtu.be/fSAfIheoJR8). In the following images we can see some of the cloud interfaces that we have built using the telemetry data logged from this example application.
 
 
 The overview dashboard is designed to give a quick high-level overview of how the application is used. We can see e.g. the adoption of new versions of the application.
