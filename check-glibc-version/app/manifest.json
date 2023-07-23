@@ -2,10 +2,10 @@
     "schemaVersion": "1.1",
     "acapPackageConf": {
         "setup": {
-            "friendlyName": "check_glibc",
+            "friendlyName": "Check glibc",
             "appName": "check_glibc",
             "vendor": "FixedIT Consulting AB",
-            "embeddedSdkVersion": "3.0",
+            "embeddedSdkVersion": "2.16",
             "user": {
                 "group": "sdk",
                 "username": "sdk"

@@ -16,11 +16,10 @@ CFLAGS += -Wall -Werror -pedantic
 all: $(PROGS)
 
 $(PROG1): $(OBJS1)
-	# Building and writing build output to `pwd`/$(PROG1)-build.log
-	echo "ENVIRONMENT:" > $(PROG1)-build.log
-	env >> $(PROG1)-build.log
-	echo "\nBUILD LOG:" >> $(PROG1)-build.log
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@ >> $(PROG1)-build.log
+	# Write build env info to the file `$(PROG1)-build.env`
+	env >> $(PROG1)-build.env
+
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 clean:
-	rm -f $(PROGS) *.o *.eap lib/* include/*
+	rm -f $(PROGS) *.o *.eap *.eap.old *_LICENSE.txt $(PROG1)-build.env package.conf package.conf.orig param.conf
