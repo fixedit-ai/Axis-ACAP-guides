@@ -4,6 +4,8 @@ This is a simple app that prints a message to the standard output containing bot
 
 The version of both `libc` (more specifically `glibc`) and the version of `glib` differs both with the different SDKs and the different camera models / firmware versions. Since the libraries are only backwards compatible it is important that the compile-time version is equal to or higher than the run-time version, otherwise there might be incompatibilities in the ABI. The incompatibilities will in most cases cause an error when starting the application but might show up as much more confusing errors such as segfaults.
 
+For more information about how the build is performed, take a look at our [Hello World example](../hello_world/).
+
 ## Building
 The application is easiest to build with FApp CLI:
 ```bash
