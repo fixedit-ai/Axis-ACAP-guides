@@ -4,9 +4,17 @@ CAM_ARCH ?= armv7hf
 FAPP_CFLAGS ?=
 FAPP_MAKE_OPTS ?=
 
-BUILDER_NAME=check_glibc-builder
-APP_NAME=check_glibc
-BINARY_NAME=check_glibc
+ifeq (, $(shell which jq))
+    $(error "jq is not installed, consider doing apt-get install jq")
+endif
+APP_VERSION := $(shell jq -r '.acapPackageConf.setup.version' app/manifest.json)
+APP_FRIENDLY_NAME := $(shell jq -r '.acapPackageConf.setup.friendlyName' app/manifest.json)
+APP_FILE_VERSION := $(subst .,_,$(APP_VERSION))
+APP_FILE_NAME := $(subst $() $(),_,$(APP_FRIENDLY_NAME))
+EAP_NAME := $(APP_FILE_NAME)_$(APP_FILE_VERSION)_$(CAM_ARCH).eap
+
+BINARY_NAME := $(shell jq -r '.acapPackageConf.setup.appName' app/manifest.json)
+BUILDER_NAME=$(BINARY_NAME)-builder
 
 MAKE_BUILD = 'source $$SDK_ENV && make ${FAPP_MAKE_OPTS}'
 MAKE_PACKAGE = 'source $$SDK_ENV && acap-build .'
@@ -17,15 +25,6 @@ GIT_STATE = ${shell test -z "`git status --porcelain`" || echo '-dirty'}
 GIT_STR = $(GIT_HASH)$(GIT_STATE)
 TAG = $(if $(GIT_STR),$(GIT_STR)-$(TIME),$(TIME))
 
-ifeq (, $(shell which jq))
-    $(error "jq is not installed, consider doing apt-get install jq")
-endif
-APP_VERSION := $(shell jq -r '.acapPackageConf.setup.version' app/manifest.json)
-APP_FRIENDLY_NAME := $(shell jq -r '.acapPackageConf.setup.friendlyName' app/manifest.json)
-APP_FILE_VERSION := $(subst .,_,$(APP_VERSION))
-APP_FILE_NAME := $(subst $() $(),_,$(APP_FRIENDLY_NAME))
-
-EAP_NAME := $(APP_FILE_NAME)_$(APP_FILE_VERSION)_$(CAM_ARCH).eap
 
 all: install run
 
@@ -41,6 +40,7 @@ build: build-builder
 	# Adding the -t flag makes sure that we get the color coding from gcc
 	docker run --rm -t \
 		-e FAPP_CFLAGS=${FAPP_CFLAGS} -e FAPP_MAKE_OPTS=${FAPP_MAKE_OPTS} \
+		-e FAPP_BIN_NAME=${BINARY_NAME} \
 		-v `pwd`/app:/opt/app \
 		$(BUILDER_NAME):$(CAM_ARCH) bash -c $(MAKE_BUILD)
 
@@ -52,6 +52,7 @@ run-docker:
 package: build-builder
 	docker run --rm -t \
 		-e FAPP_CFLAGS=${FAPP_CFLAGS} \
+		-e FAPP_BIN_NAME=${BINARY_NAME} \
 		-v `pwd`/app:/opt/app \
 		$(BUILDER_NAME):$(CAM_ARCH) bash -c $(MAKE_PACKAGE)
 
@@ -59,7 +60,7 @@ cformat:
 	clang-format -i app/src/*.[ch]
 
 clean:
-	make -C app clean
+	make -C app clean FAPP_BIN_NAME=${BINARY_NAME}
 
 # ------------------------------
 # Targets affecting the camera
@@ -75,7 +76,7 @@ install: package
 install-bin: build
 	# Copy the binary only, this is faster than installing the eap file but
 	# can only be done when the eap file has been installed before
-	scp app/$(BINARY_NAME) $(CAM_HOST):/usr/local/packages/$(APP_NAME)
+	scp app/$(BINARY_NAME) $(CAM_HOST):/usr/local/packages/$(BINARY_NAME)
 
 run-bin: build
 	# Copy and run only the binary from the /tmp dir, this works only
@@ -84,4 +85,4 @@ run-bin: build
 	ssh -t $(CAM_HOST) /tmp/$(BINARY_NAME)
 
 run: install-bin
-	ssh -t $(CAM_HOST) /usr/local/packages/$(APP_NAME)/$(BINARY_NAME)
+	ssh -t $(CAM_HOST) /usr/local/packages/$(BINARY_NAME)/$(BINARY_NAME)

@@ -1,6 +1,10 @@
-PROG1	= hello_world
-OBJS1	= src/main.c
-PROGS	= $(PROG1)
+ifeq ($(FAPP_BIN_NAME),)
+$(error FAPP_BIN_NAME is not set)
+endif
+
+PROG1 = $(FAPP_BIN_NAME)
+OBJS1 = src/main.c
+PROGS = $(PROG1)
 
 PKGS =
 
@@ -12,6 +16,7 @@ CFLAGS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags $(PKGS)
 LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
 
 CFLAGS += -Wall -Werror -pedantic
+CFLAGS += -DAPP_NAME=\"$(FAPP_BIN_NAME)\"
 
 all: $(PROGS)
 
