@@ -4,9 +4,9 @@ CAM_ARCH ?= armv7hf
 FAPP_CFLAGS ?=
 FAPP_MAKE_OPTS ?=
 
-BUILDER_NAME=check_glibc-builder
-APP_NAME=check_glibc
-BINARY_NAME=check_glibc
+BUILDER_NAME=hello_world-builder
+APP_NAME=hello_world
+BINARY_NAME=hello_world
 
 MAKE_BUILD = 'source $$SDK_ENV && make ${FAPP_MAKE_OPTS}'
 MAKE_PACKAGE = 'source $$SDK_ENV && acap-build .'
@@ -76,12 +76,6 @@ install-bin: build
 	# Copy the binary only, this is faster than installing the eap file but
 	# can only be done when the eap file has been installed before
 	scp app/$(BINARY_NAME) $(CAM_HOST):/usr/local/packages/$(APP_NAME)
-
-run-bin: build
-	# Copy and run only the binary from the /tmp dir, this works only
-	# if the binary does not depend on any other files in the package
-	scp app/$(BINARY_NAME) $(CAM_HOST):/tmp/$(BINARY_NAME)
-	ssh -t $(CAM_HOST) /tmp/$(BINARY_NAME)
 
 run: install-bin
 	ssh -t $(CAM_HOST) /usr/local/packages/$(APP_NAME)/$(BINARY_NAME)

@@ -1,8 +1,8 @@
-PROG1	= check_glibc
-OBJS1	= src/$(PROG1).c
+PROG1	= hello_world
+OBJS1	= src/main.c
 PROGS	= $(PROG1)
 
-PKGS = glib-2.0
+PKGS =
 
 CFLAGS  += $(FAPP_CFLAGS) -Iinclude
 
