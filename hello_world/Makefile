@@ -70,8 +70,12 @@ read-log:
 
 install: package
 	# Install the acap as a package on the camera
-	scp app/$(EAP_NAME) $(CAM_HOST):/tmp
-	ssh $(CAM_HOST) "acap-install /tmp/$(EAP_NAME)"
+	# We will make use of a randomized name to avoid conflicting
+	# with the VAPIX installer if the cleanup would fail.
+	TMP_NAME=$(shell mktemp -u XXXXXXXXXX).eap && \
+	scp app/$(EAP_NAME) $(CAM_HOST):/tmp/$$TMP_NAME && \
+	ssh $(CAM_HOST) "acap-install /tmp/$$TMP_NAME" && \
+	ssh $(CAM_HOST) "rm /tmp/$$TMP_NAME"
 
 install-bin: build
 	# Copy the binary only, this is faster than installing the eap file but
