@@ -2,7 +2,9 @@
 This repository serves as a collection of guides for ACAP development for Axis cameras by showing example code. Each explained problem and solution example has their own folder.
 
 ## Hello world
-This is a simple hello world application with a simple deployment script. The primary difference between this example and Axis official examples is that we have added a `Makefile` to make experimentation and deployment easier with targets such as `make install` and `make run`.
+This is a simple hello world application with deployment and prototyping scripts. The primary difference between this example and Axis official examples is that we have added a tools `Makefile` for Linux and PowerShell scripts for Windows to make experimentation and deployment easier with targets such as `make install` and `make run` on Linux and `.\windows_scripts\install-package.ps1 -BinaryOnly -Run` on Windows.
+
+This application may be used as a starting point for production ACAPs.
 
 ## Preuninstall script
 This directory shows how the preuninstall script can be used to execute a script before the ACAP application is uninstalled from the camera.
