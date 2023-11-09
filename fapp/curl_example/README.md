@@ -17,7 +17,7 @@ To build the application, simply run:
 fappcli-build build .
 ```
 
-The tool will fetch all the libraries and requirements needed and build the application. It will then build a docker image from the `Dockerfile`. If the application was not built in the docker build step, the `acap-build` command will be run in the docker container with parameters described in the `fapp-manifest` file. The build output is captured and found in the file `build.log` on the host machine. If the build would fail due to e.g. invalid C code or errors in the `Dockerfile`, the build root will be extracted from the docker container and can be found in the `build_root` directory on the host machine. This simplifies the troubleshooting process. Finally the command will extract the `.eap` file from the Docker container. 
+The tool will fetch all the libraries and requirements needed and build the application. It will then build a docker image from the `Dockerfile`. If the application was not built in the docker build step, the `acap-build` command will be run in the docker container with parameters described in the `fapp-manifest` file. The build output is captured and found in the file `build.log` on the host machine. If the build would fail due to e.g. invalid C code or compilation errors, the partial build directorty will be extracted from the docker container and can be found in the `build_root` directory on the host machine. This simplifies the troubleshooting process. Finally the command will extract the `.eap` file from the Docker container. 
 
 Select ACAP SDK 3 by running:
 ```bash
@@ -47,7 +47,7 @@ which will not only build and install the application but also run it in the cam
 This application is automatically built and (statically) tested for the `aarch64` and `armv7hf` cameras with [the CI/CD job specified here](https://github.com/fixedit-ai/Axis-ACAP-guides/blob/main/.github/workflows/build_fapp_curl_example.yml). The application is built with the [fixedit/build-eap-action](https://github.com/fixedit-ai/build-eap-action) and tested with the [fixedit/test-eap-action](https://github.com/fixedit-ai/test-eap-action).
 
 ## Using precompiled libraries
-A library specified with the command line argument `--lib` or specified in the `fapp-manifest.json` file will be fetched as a docker image and the corresponding docker build-arg will be set. The format of the build-arg is `FAPP_IMAGE_<LIBRARY_NAME>`, e.g. specifying `--lib curl` will make the library available as `FAPP_IMAGE_CURL`. The deployment structure of all libraries are the same:
+A library specified with the command line argument `--lib` or specified in the `build.lib` array in the `fapp-manifest.json` file will be fetched as a docker image and the corresponding docker build-arg will be set. The format of the build-arg is `FAPP_IMAGE_<LIBRARY_NAME>`, e.g. specifying `--lib curl` will make the library available as `FAPP_IMAGE_CURL`. The deployment structure of all libraries are the same:
 ```
 /
 ├── library
@@ -75,7 +75,7 @@ To correctly include all the libraries license information in your applications 
 RUN cat license/* >> LICENSE
 ```
 
-The `LICENSE` files and the `lib` directory will always be included in the `.eap` file. To include the `bin` folder with camera CLI tools, specify the argument `--extra-package-files bin` or add the same line to the `fapp-manifest.json` file.
+The `LICENSE` files and the `lib` directory will always be included in the `.eap` file. To include the `bin` folder with camera CLI tools, specify the argument `--extra-package-files bin` or add the `build.extra_package_files` array to the `fapp-manifest.json` file.
 
 ## Logging and signal handling with libfapp
 The application does also make use of `libfapp`. In difference from the other libraries this is distributed as source code. The `fappcli` tool will automatically download the source code if the `--lib libfapp` option is specified or if it is present in the `fapp-manifest.json` file.
