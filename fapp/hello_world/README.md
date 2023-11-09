@@ -15,7 +15,7 @@ You can also build the application, install it in an available camera and run it
 ```bash
 fappcli-deploy run . --lib libfapp
 ```
-This command will look in your `~/.fapp` config file for cameras, find a camera that is currently available and check the CPU architecture of the camera. The application is then built for the cameras architecture, and installed in the camera using the VAPIX API. If the application is already installed, only the files that has been updated since last is copied to the camera (for faster deployment). Once this is done, the application is run over ssh with the terminal's pty connected to the
+This command will look in your `~/.fapp` config file for cameras, find a camera that is currently available and check the CPU architecture of the camera. The application is then built for the cameras architecture, and installed in the camera using the VAPIX API. Once this is done, the application is run over ssh with the terminal's pty connected to the
 application.
 
 The FApp CLI tool will automatically set build arguments for the build, such as:
