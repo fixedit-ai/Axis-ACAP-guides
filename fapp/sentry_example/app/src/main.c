@@ -10,10 +10,6 @@
 #include <vdo-error.h>
 #include <vdo-stream.h>
 
-// Use the cameras certificate authority to validate certs
-// This is needed since sentry reports over encrypted https
-#define SSL_CA_PATH "/etc/ssl/certs/ca-certificates.crt"
-
 /* Log a simple telemetry message to the Sentry.io server */
 void sentry_log_message(const char *level, const char *message,
                         const char *description) {
@@ -170,7 +166,6 @@ static void fapp_sentry_init() {
   sentry_options_set_database_path(options, APP_DIR "/localdata/sentry");
   sentry_options_set_release(options, APP_VERSION);
   sentry_options_set_debug(options, SENTRY_DEBUG);
-  sentry_options_set_ca_certs(options, SSL_CA_PATH);
 
   // Set the sampling rate for performance metrics. Since we measure
   // the analytics of every frame we will get ~25 samples per second.

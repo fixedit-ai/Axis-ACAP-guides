@@ -6,9 +6,6 @@
 #include <glib.h>
 #include <json-glib/json-glib.h>
 
-// Use the cameras certificate authority to validate certs
-#define SSL_CA_PATH "/etc/ssl/certs"
-
 /* This struct defines the content of the todo API that we are getting data from
  */
 typedef struct todo_item {
@@ -51,7 +48,6 @@ static GString *web_get_json_data(const char *url) {
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_curl_response_to_gstring);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)json_string);
-  curl_easy_setopt(curl, CURLOPT_CAPATH, SSL_CA_PATH);
 
   curl_retval = curl_easy_perform(curl);
   if (curl_retval != CURLE_OK) {
