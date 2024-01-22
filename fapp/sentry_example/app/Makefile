@@ -18,7 +18,7 @@ C_FILES = $(wildcard src/*.c) $(wildcard src/$(LIBFAPP_LIBRARY_PATH)/*.c)
 PKGS = glib-2.0 gobject-2.0
 
 CFLAGS += $(FAPP_CFLAGS) -Iinclude \
-          -DAPP_NAME="\"$(FAPP_APP_NAME)\"" \
+          -DBIN_NAME="\"$(FAPP_BIN_NAME)\"" \
           -DAPP_DIR="\"/usr/local/packages/$(FAPP_APP_NAME)/\"" \
           -DAPP_VERSION="\"$(FAPP_APP_VERSION)\"" \
           -DSENTRY_DSN="\"$(SENTRY_DSN)\"" \

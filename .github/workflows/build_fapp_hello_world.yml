@@ -26,7 +26,7 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           dir: fapp/hello_world
-          libs: libfapp
+          fapp-manifest: fapp/hello_world/fapp-manifest.json
 
       - name: Validate the content of the ACAP .eap file
         uses: fixedit-ai/test-eap-action@main

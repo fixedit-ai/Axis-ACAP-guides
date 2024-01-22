@@ -271,7 +271,7 @@ cleanup:
 }
 
 int main(int argc, char **argv) {
-  fapp_logger_init(APP_NAME);
+  fapp_logger_init(BIN_NAME);
 
   // Setup a signal handler for gracefull shutdown. Note that Sentry will
   // override some of the handlers to capture stack traces. If we need to
