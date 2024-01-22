@@ -160,7 +160,7 @@ static void get_and_print_json() {
 }
 
 int main(int argc, char **argv) {
-  fapp_logger_init(APP_NAME);
+  fapp_logger_init(BIN_NAME);
 
   // Setup a signal handler so that we can perform clean-up and
   // return of peripherals when receiving a signal or when an

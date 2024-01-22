@@ -1,0 +1,7 @@
+{
+    "build": {
+        "lib": ["libfapp"],
+	"docker_lib_version": "2023-12-13_17-06-13",
+        "sdk_name": "acap-native-sdk"
+    }
+}

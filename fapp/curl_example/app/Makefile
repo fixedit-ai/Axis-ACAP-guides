@@ -1,21 +1,18 @@
 # libfapp source code is downloaded by the fappcli build tool
 LIBFAPP_LIBRARY_PATH = fapp/
 
-# Flags are already set by the SDK, here we can add any of our own additions
-# and specify which C-files and header include directories to use.
-
 C_FILES = $(wildcard src/*.c) $(wildcard src/$(LIBFAPP_LIBRARY_PATH)/*.c)
 
 PKGS = glib-2.0 gobject-2.0
 
 CFLAGS += $(FAPP_CFLAGS) -Iinclude \
-          -DAPP_NAME="\"$(FAPP_APP_NAME)\""
+          -DBIN_NAME="\"$(FAPP_BIN_NAME)\""
 
-LDFLAGS += -L./lib -Wl,-rpath,'$$ORIGIN/lib' $(FAPP_LDFLAGS) \
-           -ljson-glib-1.0 -lcurl ./lib/libssl.so ./lib/libcrypto.so
+LDFLAGS += -L./lib -Wl,-rpath,'$$ORIGIN/lib' $(FAPP_LDFLAGS)
 
 CFLAGS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags $(PKGS))
 LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
+LDLIBS += -ljson-glib-1.0 -lcurl ./lib/libssl.so ./lib/libcrypto.so
 
 CFLAGS += -Wall -Werror -pedantic
 
@@ -37,4 +34,4 @@ all: $(FAPP_BIN_NAME)
 	$(CC) -c -o $@ $(CFLAGS) $<
 
 $(FAPP_BIN_NAME): $(C_OBJS)
-	$(CC) $^ $(LDLIBS) -o $@ $(LDFLAGS)
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@

@@ -4,7 +4,7 @@
 #include <fapp/misc.h>    // For signal handling
 
 int main(int argc, char **argv) {
-  fapp_logger_init(APP_NAME);
+  fapp_logger_init(BIN_NAME);
 
   // Setup a signal handler so that we can perform clean-up and
   // return of peripherals when receiving a signal or when an
@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
   fapp_signal_handler_register_gmainloop(loop);
 
   // Write hello world!
-  fapp_logger_log(LOG_INFO, "Hello world!");
+  fapp_logger_log(LOG_INFO, "I am %s with version %s!", APP_NAME, APP_VERSION);
 
   // Run main loop until receiving a signal
   while (!fapp_do_stop) {
