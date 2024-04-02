@@ -10,7 +10,7 @@ This application may be used as a starting point for production ACAPs.
 This directory shows how the preuninstall script can be used to execute a script before the ACAP application is uninstalled from the camera.
 
 ## Parameter handler
-This directory shows how the built in parameter library is used in SDK 3.
+This directory shows how the built-in parameter handler library can be used in SDK 3 and Native SDK 4. This can be used to keep configurations in your ACAP.
 
 ## Check glibc version
 This is a simple application that prints the build-time and run-time versions of `libc` and `glib` used in the camera and in the SDK. This application is helpful for debugging and compatibility checking.
