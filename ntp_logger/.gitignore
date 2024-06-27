@@ -1,0 +1,8 @@
+*.csv
+*.txt
+fapp.tar.gz
+app/src/fapp/*
+app/include/fapp/*
+*.eap
+build.log
+s3.env

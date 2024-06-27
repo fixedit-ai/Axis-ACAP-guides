@@ -1,0 +1,18 @@
+{
+    "schemaVersion": "1.1",
+    "acapPackageConf": {
+        "setup": {
+            "friendlyName": "NTP debug logger",
+            "appName": "ntp_logger",
+            "vendor": "FixedIT Consulting AB",
+            "embeddedSdkVersion": "2.16",
+            "user": {
+                "group": "sdk",
+                "username": "sdk"
+            },
+            "vendorUrl": "fixedit.ai",
+            "runMode": "respawn",
+            "version": "0.0.1"
+        }
+    }
+}

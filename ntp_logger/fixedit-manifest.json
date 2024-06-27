@@ -1,0 +1,15 @@
+{
+  "build": {
+    "lib": [
+      "libfapp", "openssl", "curl"
+    ],
+    "sdk_name": "acap-sdk",
+    "sdk_version": "3.3",
+    "build_arg": [
+      "PRESIGNED_URL_TIME_LOG=",
+      "PRESIGNED_URL_NTP_STATUS=",
+      "PRESIGNED_URL_NTP_FAILED_STATUS=",
+      "UPLOAD_INTERVAL_S=86400"
+    ]
+  }
+}
