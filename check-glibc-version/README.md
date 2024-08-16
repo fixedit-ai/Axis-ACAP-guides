@@ -15,6 +15,7 @@ Install the application in the camera, start it and show the logs by pressing th
 ```
 
 ## Building
+You can download [prebuilt .eap files here](https://github.com/fixedit-ai/Axis-ACAP-guides/releases/tag/check-glibc-v0.0.1).
 
 ### Build with the Makefile
 If you do not have access to the FixedIT CLI tool, use the Makefile:
